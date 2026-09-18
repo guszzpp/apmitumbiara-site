@@ -168,6 +168,14 @@ h1,h2,h3{font-family:var(--serif);font-weight:500;color:var(--navy-900);margin:0
 .prose p:last-child{margin-bottom:0}
 .prose strong{color:var(--navy-900);font-weight:600}
 
+/* Alinhamento editorial das páginas Associação e Contato */
+.prose p,
+.statute-item p,
+.institutional-note{
+  text-align:justify;
+  text-justify:inter-word;
+}
+
 /* ---------- lista estatutária (finalidades) ---------- */
 .statute-list{border-top:1px solid var(--line);max-width:74ch}
 .statute-item{
