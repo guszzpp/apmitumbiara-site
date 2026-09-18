@@ -1,0 +1,240 @@
+/* ==========================================================================
+   APMI — Associação dos Procuradores do Município de Itumbiara
+   Folha de estilos institucional.
+
+   Paleta extraída do próprio emblema da associação (navy + vinho + prata),
+   não de uma paleta genérica — para manter a identidade já registrada.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Public+Sans:wght@400;500;600;700&display=swap');
+
+:root{
+  /* cor — extraída do brasão (azul-marinho ~#001c41, vinho ~#770000) */
+  --navy-950:#0a1622;
+  --navy-900:#0d2744;
+  --navy-700:#1e3a57;
+  --navy-500:#3c5878;
+  --wine-700:#6c1a1a;
+  --wine-600:#8a2a2a;
+  --ink:#182430;
+  --muted:#586573;
+  --line:#d8dde1;
+  --line-strong:#aeb7bd;
+  --paper:#f4f6f7;     /* branco levemente frio, "papel de segurança" — não creme */
+  --white:#ffffff;
+
+  --serif:'Newsreader', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  --sans:'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+
+  --max:1160px;
+  --gutter:min(6vw, 56px);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+}
+
+body{
+  margin:0;
+  background:var(--white);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+a{color:inherit}
+img{display:block;max-width:100%}
+h1,h2,h3{font-family:var(--serif);font-weight:500;color:var(--navy-900);margin:0}
+
+.container{width:min(var(--max), 100% - (var(--gutter) * 2));margin-inline:auto}
+
+.skip-link{
+  position:absolute;left:-9999px;top:auto;
+  background:var(--navy-900);color:#fff;padding:12px 18px;
+  font-family:var(--sans);font-weight:600;text-decoration:none;z-index:200;
+}
+.skip-link:focus{left:var(--gutter);top:14px}
+
+:focus-visible{outline:2px solid var(--wine-700);outline-offset:3px}
+
+/* ---------- letterhead / cabeçalho ---------- */
+.masthead-band{height:4px;background:linear-gradient(90deg,var(--wine-700),var(--navy-900) 62%)}
+
+.site-header{background:var(--white);border-bottom:1px solid var(--line)}
+.site-header-inner{
+  min-height:108px;display:flex;align-items:center;justify-content:space-between;gap:32px;
+  padding-block:14px;
+}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+.brand img{height:58px;width:auto}
+
+.primary-nav{display:flex;align-items:center;gap:2px}
+.primary-nav a{
+  display:inline-block;text-decoration:none;color:var(--navy-700);
+  font-family:var(--sans);font-weight:600;font-size:.94rem;
+  padding:10px 16px;border-bottom:2px solid transparent;
+}
+.primary-nav a:hover{color:var(--wine-700)}
+.primary-nav a:focus-visible{border-bottom-color:var(--wine-700)}
+.primary-nav a[aria-current="page"]{color:var(--navy-900);border-bottom-color:var(--wine-700)}
+.mobile-nav a[aria-current="page"]{color:var(--navy-900);background:var(--paper)}
+
+.nav-toggle{
+  display:none;background:var(--white);border:1px solid var(--line-strong);
+  width:44px;height:44px;color:var(--navy-900);font-size:1.15rem;cursor:pointer;
+}
+.mobile-nav{display:none}
+.mobile-nav.is-open{display:flex;flex-direction:column;border-top:1px solid var(--line);padding:6px 0 16px}
+.mobile-nav a{padding:13px 0;text-decoration:none;color:var(--navy-700);font-weight:600;border-bottom:1px solid var(--line)}
+.mobile-nav a:last-child{border-bottom:none}
+
+/* ---------- hero / frontispício ---------- */
+.hero{background:var(--paper);border-bottom:1px solid var(--line);overflow:hidden}
+.hero-inner{
+  display:grid;grid-template-columns:1fr 260px;gap:64px;align-items:center;
+  padding-block:64px;
+}
+.hero-eyebrow{
+  font-family:var(--sans);font-size:.85rem;color:var(--muted);
+  margin:0 0 18px;padding-left:14px;border-left:2px solid var(--wine-700);
+}
+.hero h1{
+  font-size:clamp(2.1rem, 3.6vw + 1rem, 3.4rem);
+  font-weight:500;line-height:1.14;letter-spacing:-.01em;
+  max-width:20ch;
+}
+.hero-lede{
+  max-width:58ch;margin:24px 0 0;color:var(--muted);
+  font-size:1.08rem;line-height:1.7;
+}
+.hero-seal{
+  justify-self:center;opacity:0;
+  animation:seal-in .7s ease-out .15s forwards;
+}
+.hero-seal img{width:190px;filter:grayscale(.15) contrast(1.02)}
+@keyframes seal-in{from{opacity:0;transform:translateY(6px) scale(.98)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.hero-seal{animation:none;opacity:1}}
+
+/* ---------- faixa de título — páginas internas ---------- */
+.page-title{background:var(--paper);border-bottom:1px solid var(--line)}
+.page-title-inner{padding-block:44px;display:flex;align-items:baseline;gap:18px;flex-wrap:wrap}
+.page-title .glyph{font-family:var(--serif);font-style:italic;color:var(--wine-700);font-size:1.3rem}
+.page-title h1{font-size:clamp(1.7rem,2.4vw + 1rem,2.3rem);font-weight:500}
+.page-title .trail{color:var(--muted);font-size:.92rem;font-family:var(--sans)}
+
+/* ---------- cartões de navegação rápida (início) ---------- */
+.quicklinks{border-top:1px solid var(--line)}
+.quicklinks-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line)}
+.quicklink{
+  background:var(--white);padding:34px 30px;text-decoration:none;
+  display:flex;flex-direction:column;gap:10px;
+}
+.quicklink:hover{background:var(--paper)}
+.quicklink .glyph{font-family:var(--serif);font-style:italic;color:var(--wine-700);font-size:1.25rem}
+.quicklink h3{font-family:var(--serif);font-weight:500;font-size:1.2rem;color:var(--navy-900)}
+.quicklink p{margin:0;color:var(--muted);font-size:.94rem;line-height:1.6}
+.quicklink span.cue{margin-top:auto;padding-top:6px;font-family:var(--sans);font-weight:600;font-size:.86rem;color:var(--navy-700)}
+.quicklink:hover span.cue{color:var(--wine-700)}
+
+/* ---------- placeholder (diretoria / contato) ---------- */
+.placeholder-box{
+  max-width:60ch;padding:28px 26px;
+  border-left:2px solid var(--wine-700);background:var(--paper);
+}
+.placeholder-box p{margin:0;color:var(--muted);font-size:1rem;line-height:1.7}
+
+/* ---------- seções ---------- */
+.section{padding-block:84px}
+.section + .section{border-top:1px solid var(--line)}
+.section.alt{background:var(--paper)}
+
+.section-grid{display:grid;grid-template-columns:240px 1fr;gap:64px;align-items:start}
+.section-mark{position:sticky;top:28px}
+.section-mark .glyph{
+  display:block;font-family:var(--serif);font-size:1.7rem;color:var(--wine-700);
+  margin:0 0 14px;line-height:1;
+}
+.section-mark h2{font-size:1.5rem;line-height:1.3}
+.section-mark p{margin:10px 0 0;color:var(--muted);font-size:.94rem;max-width:26ch}
+
+.prose{max-width:66ch}
+.prose p{margin:0 0 20px;color:#37424c;font-size:1.02rem;line-height:1.75}
+.prose p:last-child{margin-bottom:0}
+.prose strong{color:var(--navy-900);font-weight:600}
+
+/* ---------- lista estatutária (finalidades) ---------- */
+.statute-list{border-top:1px solid var(--line);max-width:74ch}
+.statute-item{
+  display:grid;grid-template-columns:104px 1fr;gap:22px;
+  padding:26px 0;border-bottom:1px solid var(--line);
+}
+.statute-item .art{
+  font-family:var(--serif);font-style:italic;color:var(--wine-700);
+  font-size:1rem;padding-top:2px;white-space:nowrap;
+}
+.statute-item h3{font-size:1.05rem;font-weight:600;font-family:var(--sans);margin:0 0 6px;color:var(--navy-900)}
+.statute-item p{margin:0;color:var(--muted);font-size:.98rem;line-height:1.65}
+
+/* ---------- tabela de informações ---------- */
+.info-list{border-top:1px solid var(--line);max-width:66ch}
+.info-row{
+  display:grid;grid-template-columns:200px 1fr;gap:24px;
+  padding:16px 0;border-bottom:1px solid var(--line);
+}
+.info-row dt{font-family:var(--sans);font-weight:600;color:var(--navy-700);font-size:.92rem}
+.info-row dd{margin:0;color:var(--ink);font-size:.98rem}
+
+.institutional-note{
+  margin-top:30px;padding:18px 22px;
+  border-left:2px solid var(--wine-700);background:var(--paper);
+  color:var(--muted);font-size:.95rem;line-height:1.6;max-width:66ch;
+}
+
+/* ---------- rodapé ---------- */
+.site-footer{background:var(--navy-950);color:#c9d2d8}
+.footer-inner{padding-block:52px 26px}
+.footer-top{display:grid;grid-template-columns:1fr auto;gap:48px;align-items:end}
+.footer-brand{display:inline-flex;background:var(--white);padding:10px 16px}
+.footer-brand img{height:40px}
+.footer-desc{margin:18px 0 0;max-width:46ch;color:#a9b4bb;font-size:.94rem;line-height:1.65}
+.footer-locus{text-align:right;font-size:.92rem;color:#a9b4bb}
+.footer-locus strong{display:block;color:#fff;font-weight:600;font-family:var(--serif);font-size:1.05rem;margin-bottom:4px}
+.footer-rule{border:none;border-top:1px solid rgba(255,255,255,.12);margin:36px 0 20px}
+.footer-bottom{display:flex;justify-content:space-between;gap:20px;color:#8393a0;font-size:.8rem}
+
+/* ---------- responsivo ---------- */
+@media (max-width:900px){
+  .primary-nav{display:none}
+  .nav-toggle{display:block}
+  .hero-inner{grid-template-columns:1fr}
+  .hero-seal{display:none}
+  .section-grid{grid-template-columns:1fr;gap:26px}
+  .section-mark{position:static}
+  .footer-top{grid-template-columns:1fr}
+  .footer-locus{text-align:left}
+  .quicklinks-grid{grid-template-columns:1fr}
+}
+@media (max-width:600px){
+  :root{--gutter:22px}
+  .site-header-inner{min-height:84px}
+  .brand img{height:44px}
+  .hero-inner{padding-block:46px}
+  .hero h1{max-width:none}
+  .section{padding-block:56px}
+  .statute-item{grid-template-columns:1fr;gap:6px}
+  .info-row{grid-template-columns:1fr;gap:4px}
+  .footer-bottom{flex-direction:column}
+}
+
+/* ---------- impressão ---------- */
+@media print{
+  .site-header,.nav-toggle,.masthead-band{display:none}
+  .section,.section + .section{border:none;padding-block:26px}
+  a{text-decoration:none;color:var(--ink)}
+}
