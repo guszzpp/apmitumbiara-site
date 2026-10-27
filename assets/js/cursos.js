@@ -1,17 +1,45 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.57.4';
 const sb = createClient('https://yocxquqiflybgdujfatv.supabase.co', 'sb_publishable_wEq-0uV-3qlq0GfK6SfUqg_GSszMXmX', {
-  auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: false }
+  auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true }
 });
 const $ = id => document.getElementById(id);
 let records = [];
+function hideAccessPanels() {
+  $('login-panel').hidden = true;
+  $('email-panel').hidden = true;
+  $('set-password-panel').hidden = true;
+  $('courses-panel').hidden = true;
+  $('cursos-status').hidden = true;
+}
 function showLogin(message = '') {
   closePasswordPanel();
-  $('login-panel').hidden = false; $('courses-panel').hidden = true;
-  $('cursos-status').hidden = true; $('login-error').textContent = message;
+  hideAccessPanels();
+  $('login-panel').hidden = false;
+  $('login-error').textContent = message;
 }
 function showStatus(message) {
-  $('login-panel').hidden = true; $('courses-panel').hidden = true;
-  $('cursos-status').hidden = false; $('cursos-status').textContent = message;
+  hideAccessPanels();
+  $('cursos-status').hidden = false;
+  $('cursos-status').textContent = message;
+}
+function showEmailPanel(mode) {
+  hideAccessPanels();
+  $('email-panel').hidden = false;
+  $('email-request-feedback').textContent = '';
+  $('email-request-feedback').classList.remove('is-error', 'is-success');
+  $('email-request-form').reset();
+  $('email-panel-title').textContent = mode === 'recover' ? 'Recuperar senha' : 'Primeiro acesso';
+  $('email-panel-description').textContent = mode === 'recover'
+    ? 'Informe seu e-mail de cadastro para receber um link que permitirá escolher outra senha.'
+    : 'Informe o e-mail cadastrado na APMI para receber um link seguro e definir sua senha.';
+  $('access-email').value = $('email').value.trim();
+  $('access-email').focus();
+}
+function firstAccessLinkPending() {
+  return new URLSearchParams(window.location.search).get('definir_senha') === '1';
+}
+function clearAccessLink() {
+  if (firstAccessLinkPending()) window.history.replaceState(null, '', '/cursos.html');
 }
 function approved(user) {
   return Boolean(user && user.email && !user.is_anonymous);
@@ -57,7 +85,10 @@ function render() {
 async function load() {
   showStatus('Verificando acesso…');
   const { data: { user }, error: userError } = await sb.auth.getUser();
-  if (userError || !user) return showLogin();
+  if (userError || !user) {
+    if (firstAccessLinkPending()) return showLogin('O link não é válido ou expirou. Solicite outro em Primeiro acesso.');
+    return showLogin();
+  }
   if (!approved(user)) {
     await sb.auth.signOut(); return showLogin('Sua conta não tem autorização de associado.');
   }
@@ -73,8 +104,15 @@ async function load() {
   [...new Set(records.map(x => x.instituicao))].forEach(s => $('filter-instituicao').add(new Option(s, s)));
   $('user-label').textContent = user.email || '';
   closePasswordPanel();
+  if (firstAccessLinkPending()) {
+    hideAccessPanels();
+    $('set-password-panel').hidden = false;
+    $('set-password-email').textContent = user.email || '';
+    $('setup-new-password').focus();
+    return;
+  }
+  hideAccessPanels();
   $('courses-panel').hidden = false;
-  $('login-panel').hidden = true; $('cursos-status').hidden = true;
   render();
 }
 
@@ -86,6 +124,80 @@ passwordToggle.addEventListener('click', () => {
   passwordToggle.setAttribute('aria-pressed', String(visible));
   passwordToggle.setAttribute('aria-label', visible ? 'Ocultar senha' : 'Mostrar senha');
   passwordToggle.title = visible ? 'Ocultar senha' : 'Mostrar senha';
+});
+
+// Primeiro acesso e recuperação usam link de verificação de propriedade do e-mail.
+// O link pode criar a identidade no Auth; somente e-mails da lista APMI
+// passam pela política RLS para consultar a tabela de cursos.
+$('first-access-button').addEventListener('click', () => showEmailPanel('first'));
+$('forgot-password-button').addEventListener('click', () => showEmailPanel('recover'));
+$('back-login-button').addEventListener('click', () => showLogin());
+$('email-request-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const feedback = $('email-request-feedback');
+  const submit = $('email-request-submit');
+  feedback.textContent = '';
+  feedback.classList.remove('is-error', 'is-success');
+  submit.disabled = true;
+  try {
+    const email = $('access-email').value.trim().toLowerCase();
+    const { error } = await sb.auth.signInWithOtp({
+      email,
+      options: {
+        shouldCreateUser: true,
+        emailRedirectTo: 'https://apmitumbiara.org/cursos.html?definir_senha=1'
+      }
+    });
+    if (error) {
+      feedback.textContent = 'Não foi possível enviar o e-mail. O serviço de envio precisa estar configurado pela APMI ou o limite de mensagens foi atingido.';
+      feedback.classList.add('is-error');
+      return;
+    }
+    feedback.textContent = 'Se o endereço estiver autorizado e o serviço de envio habilitado, você receberá um link. Verifique também a pasta de spam.';
+    feedback.classList.add('is-success');
+  } catch {
+    feedback.textContent = 'Não foi possível enviar a solicitação. Tente novamente.';
+    feedback.classList.add('is-error');
+  } finally { submit.disabled = false; }
+});
+$('set-password-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const feedback = $('set-password-feedback');
+  const submit = $('setup-password-submit');
+  feedback.textContent = '';
+  feedback.classList.remove('is-error', 'is-success');
+  const password = $('setup-new-password').value;
+  if (password.length < 10) {
+    feedback.textContent = 'Sua senha deve ter pelo menos 10 caracteres.';
+    feedback.classList.add('is-error');
+    return;
+  }
+  if (password !== $('setup-confirm-password').value) {
+    feedback.textContent = 'As senhas informadas não coincidem.';
+    feedback.classList.add('is-error');
+    return;
+  }
+  submit.disabled = true;
+  try {
+    const { error } = await sb.auth.updateUser({ password });
+    if (error) {
+      feedback.textContent = 'Não foi possível cadastrar a senha. Solicite um novo link ou entre em contato com a APMI.';
+      feedback.classList.add('is-error');
+      return;
+    }
+    $('set-password-form').reset();
+    clearAccessLink();
+    await load();
+  } catch {
+    feedback.textContent = 'Não foi possível salvar sua senha. Tente novamente.';
+    feedback.classList.add('is-error');
+  } finally { submit.disabled = false; }
+});
+$('cancel-password-setup').addEventListener('click', async () => {
+  await sb.auth.signOut();
+  clearAccessLink();
+  records = [];
+  showLogin();
 });
 
 $('login-form').addEventListener('submit', async e => {
