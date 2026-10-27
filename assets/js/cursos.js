@@ -127,8 +127,8 @@ passwordToggle.addEventListener('click', () => {
 });
 
 // Primeiro acesso e recuperação usam link de verificação de propriedade do e-mail.
-// O link pode criar a identidade no Auth; somente e-mails da lista APMI
-// passam pela política RLS para consultar a tabela de cursos.
+// O link funciona apenas para contas já cadastradas no Auth; somente
+// e-mails autorizados pela APMI passam pela política RLS dos cursos.
 $('first-access-button').addEventListener('click', () => showEmailPanel('first'));
 $('forgot-password-button').addEventListener('click', () => showEmailPanel('recover'));
 $('back-login-button').addEventListener('click', () => showLogin());
@@ -144,7 +144,7 @@ $('email-request-form').addEventListener('submit', async e => {
     const { error } = await sb.auth.signInWithOtp({
       email,
       options: {
-        shouldCreateUser: true,
+        shouldCreateUser: false,
         emailRedirectTo: 'https://apmitumbiara.org/cursos.html?definir_senha=1'
       }
     });
