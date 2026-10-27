@@ -117,7 +117,7 @@ h1,h2,h3{font-family:var(--serif);font-weight:500;color:var(--navy-900);margin:0
   justify-self:center;opacity:0;
   animation:seal-in .7s ease-out .15s forwards;
 }
-.hero-seal img{width:190px;filter:grayscale(.15) contrast(1.02)}
+.hero-seal img{width:190px;height:auto;filter:none}
 @keyframes seal-in{from{opacity:0;transform:translateY(6px) scale(.98)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.hero-seal{animation:none;opacity:1}}
 
@@ -280,22 +280,29 @@ html[data-theme="dark"]{
   --white:#111c2a;
 }
 html[data-theme="dark"] .prose p{color:#cbd5df}
-/* Os PNGs originais têm fundo claro: a inversão seguida de screen
-   torna esse fundo invisível e mantém o desenho legível em tons da identidade. */
+/* A identidade visual mantém as cores originais dos PNGs em ambos
+   os temas. Nunca usar inversão, modos de mesclagem ou escala alternativa. */
 html[data-theme="dark"] .site-header .brand img,
 html[data-theme="dark"] .footer-brand img,
 html[data-theme="dark"] .hero-seal img{
   background:transparent;
-  padding:0;
   border:0;
   border-radius:0;
   box-shadow:none;
-  filter:invert(1) hue-rotate(180deg);
-  mix-blend-mode:screen;
+  filter:none;
+  mix-blend-mode:normal;
 }
+/* O rodapé reserva exatamente o mesmo espaço para a marca nos dois modos. */
+.footer-brand,
 html[data-theme="dark"] .footer-brand{
   background:transparent;
-  padding:0;
+  padding:10px 16px;
+}
+.footer-brand img{
+  display:block;
+  height:40px;
+  width:auto;
+  max-width:100%;
 }
 
 /* Mantém o cabeçalho equilibrado em larguras de desktop menores,
