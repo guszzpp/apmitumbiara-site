@@ -60,11 +60,6 @@ async function load() {
   if (!approved(user)) {
     await sb.auth.signOut(); return showLogin('Sua conta não tem autorização de associado.');
   }
-  if (user.app_metadata?.apmi_must_change_password === true) {
-    $('password-panel').hidden = false; $('login-panel').hidden = true;
-    $('courses-panel').hidden = true; $('cursos-status').hidden = true;
-    return;
-  }
   const { data, error } = await sb.from('cursos_apmi')
     .select('instituicao,categoria,curso,carga_horaria,link,rotulo_link,ordem').order('ordem').limit(500);
   if (error) return showStatus('Não foi possível carregar os cursos. Atualize a página.');
@@ -72,7 +67,7 @@ async function load() {
   $('filter-instituicao').replaceChildren(new Option('Todas as instituições', ''));
   [...new Set(records.map(x => x.instituicao))].forEach(s => $('filter-instituicao').add(new Option(s, s)));
   $('user-label').textContent = user.email || '';
-  $('password-panel').hidden = true; $('courses-panel').hidden = false;
+  $('courses-panel').hidden = false;
   $('login-panel').hidden = true; $('cursos-status').hidden = true;
   render();
 }
@@ -85,20 +80,6 @@ $('login-form').addEventListener('submit', async e => {
   button.disabled = false;
   if (error) return showLogin('E-mail ou senha inválidos.');
   $('password').value = ''; await load();
-});
-$('password-form').addEventListener('submit', async e => {
-  e.preventDefault();
-  const password = $('new-password').value;
-  if (password.length < 12 || !/[A-Z]/.test(password) || !/[a-z]/.test(password) ||
-      !/[0-9]/.test(password)) {
-    $('password-error').textContent = 'A nova senha deve ter 12 caracteres ou mais, incluindo maiúsculas, minúsculas e números.'; return;
-  }
-  const btn = $('password-submit'); btn.disabled = true; $('password-error').textContent = '';
-  const { error } = await sb.auth.updateUser({ password });
-  btn.disabled = false;
-  if (error) { $('password-error').textContent = 'Não foi possível alterar a senha. Tente novamente.'; return; }
-  $('password-error').textContent = 'Senha atualizada. Para liberar o acesso, a administração precisa registrar a conclusão da troca.';
-  await sb.auth.signOut(); showLogin('Senha alterada. Aguarde a liberação ou contate a APMI.');
 });
 $('logout-button').addEventListener('click', async () => { await sb.auth.signOut(); records = []; showLogin(); });
 $('filter-text').addEventListener('input', render);
