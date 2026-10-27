@@ -205,24 +205,17 @@ h1,h2,h3{font-family:var(--serif);font-weight:500;color:var(--navy-900);margin:0
 }
 
 /* ---------- rodapé ---------- */
-.site-footer{background:var(--navy-950);color:#c9d2d8;overflow:hidden}
-.footer-inner{padding-block:0 26px}
-.footer-top{
-  position:relative;isolation:isolate;
-  display:grid;grid-template-columns:1fr auto;gap:48px;align-items:end;
-  padding-block:36px;
+.site-footer{background:var(--navy-950);color:#c9d2d8}
+.footer-inner{padding-block:52px 26px}
+.footer-top{display:grid;grid-template-columns:1fr auto;gap:48px;align-items:end}
+.footer-brand{
+  display:inline-flex;align-items:center;
+  background:#edf2f5;padding:8px 12px;
 }
-/* Faixa integrada ao rodapé: evita placas brancas nas imagens,
-   mas garante contraste para o azul-marinho original da marca. */
-.footer-top::before{
-  content:"";position:absolute;inset-block:0;left:50%;width:100vw;
-  transform:translateX(-50%);background:#edf2f5;z-index:-1;
-}
-.footer-brand{display:inline-flex;background:transparent;padding:0}
-.footer-brand img{height:58px;width:auto;max-width:100%;filter:none}
-.footer-desc{margin:18px 0 0;max-width:46ch;color:#41566a;font-size:.94rem;line-height:1.65}
-.footer-locus{text-align:right;font-size:.92rem;color:#586573}
-.footer-locus strong{display:block;color:#0d2744;font-weight:600;font-family:var(--serif);font-size:1.05rem;margin-bottom:4px}
+.footer-brand img{display:block;height:58px;width:auto;max-width:100%;filter:none;mix-blend-mode:normal}
+.footer-desc{margin:18px 0 0;max-width:46ch;color:#a9b4bb;font-size:.94rem;line-height:1.65}
+.footer-locus{text-align:right;font-size:.92rem;color:#a9b4bb}
+.footer-locus strong{display:block;color:#fff;font-weight:600;font-family:var(--serif);font-size:1.05rem;margin-bottom:4px}
 .footer-rule{border:none;border-top:1px solid rgba(255,255,255,.12);margin:36px 0 20px}
 .footer-bottom{display:flex;justify-content:space-between;gap:20px;color:#8393a0;font-size:.8rem}
 
@@ -302,11 +295,12 @@ html[data-theme="dark"] .hero-seal img{
   filter:none;
   mix-blend-mode:normal;
 }
-/* Mesmo logotipo, mesmas cores e dimensões nos dois temas. */
+/* Preserva a cor original da logo sobre uma base de contraste localizada,
+   sem clarear o fundo azul-marinho do rodapé. */
 .footer-brand,
 html[data-theme="dark"] .footer-brand{
-  background:transparent;
-  padding:0;
+  background:#edf2f5;
+  padding:8px 12px;
 }
 .footer-brand img{
   display:block;
