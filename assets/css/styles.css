@@ -280,12 +280,44 @@ html[data-theme="dark"]{
   --white:#111c2a;
 }
 html[data-theme="dark"] .prose p{color:#cbd5df}
-html[data-theme="dark"] .site-header .brand img{
-  background:#fff;border-radius:3px;padding:3px 6px;
-}
-html[data-theme="dark"] .footer-brand{background:#fff}
+/* Os PNGs originais têm fundo claro: a inversão seguida de screen
+   torna esse fundo invisível e mantém o desenho legível em tons da identidade. */
+html[data-theme="dark"] .site-header .brand img,
+html[data-theme="dark"] .footer-brand img,
 html[data-theme="dark"] .hero-seal img{
-  background:rgba(255,255,255,.95);padding:16px;border-radius:50%;filter:none;
+  background:transparent;
+  padding:0;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+  filter:invert(1) hue-rotate(180deg);
+  mix-blend-mode:screen;
+}
+html[data-theme="dark"] .footer-brand{
+  background:transparent;
+  padding:0;
+}
+
+/* Mantém o cabeçalho equilibrado em larguras de desktop menores,
+   sem espremer a navegação entre a marca e o controle do tema. */
+@media (min-width:901px){
+  .site-header-inner{gap:clamp(16px,2vw,32px)}
+  .brand{flex:0 1 auto;min-width:0}
+  .primary-nav{margin-left:auto;min-width:0;justify-content:flex-end}
+  .primary-nav a{padding-inline:clamp(8px,1vw,16px);white-space:nowrap}
+}
+@media (min-width:901px) and (max-width:1050px){
+  .primary-nav{display:none}
+  .nav-toggle{display:block}
+}
+@media (min-width:901px){
+  .hero-inner{
+    grid-template-columns:minmax(0,1fr) minmax(190px,260px);
+    gap:clamp(28px,4vw,64px);
+  }
+  .hero-inner > :first-child{min-width:0}
+  .hero-seal{width:100%;display:flex;align-items:center;justify-content:center}
+  .hero-seal img{width:190px;height:auto;max-width:100%}
 }
 html[data-theme="dark"] .skip-link{background:#365779;color:#fff}
 html[data-theme="dark"] .cursos-login input,
@@ -310,4 +342,9 @@ html[data-theme="dark"] .cursos-login button.cursos-senha-toggle:hover{backgroun
     --paper:#f4f6f7;--white:#fff;
   }
   html[data-theme="dark"] .prose p{color:#37424c}
+  html[data-theme="dark"] .site-header .brand img,
+  html[data-theme="dark"] .footer-brand img,
+  html[data-theme="dark"] .hero-seal img{
+    filter:none;mix-blend-mode:normal;
+  }
 }
