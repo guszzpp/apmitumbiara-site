@@ -5,6 +5,7 @@ const sb = createClient('https://yocxquqiflybgdujfatv.supabase.co', 'sb_publisha
 const $ = id => document.getElementById(id);
 let records = [];
 function showLogin(message = '') {
+  closePasswordPanel();
   $('login-panel').hidden = false; $('courses-panel').hidden = true;
   $('cursos-status').hidden = true; $('login-error').textContent = message;
 }
@@ -71,6 +72,7 @@ async function load() {
   $('filter-instituicao').replaceChildren(new Option('Todas as instituições', ''));
   [...new Set(records.map(x => x.instituicao))].forEach(s => $('filter-instituicao').add(new Option(s, s)));
   $('user-label').textContent = user.email || '';
+  closePasswordPanel();
   $('courses-panel').hidden = false;
   $('login-panel').hidden = true; $('cursos-status').hidden = true;
   render();
@@ -95,6 +97,75 @@ $('login-form').addEventListener('submit', async e => {
   button.disabled = false;
   if (error) return showLogin('E-mail ou senha inválidos.');
   $('password').value = ''; await load();
+});
+// A alteração da senha é sempre opcional e requer uma sessão autenticada.
+function closePasswordPanel() {
+  $('change-password-panel').hidden = true;
+  $('change-password-button').setAttribute('aria-expanded', 'false');
+  $('change-password-form').reset();
+  $('change-password-feedback').textContent = '';
+  $('change-password-feedback').classList.remove('is-error', 'is-success');
+}
+$('change-password-button').addEventListener('click', () => {
+  const opening = $('change-password-panel').hidden;
+  closePasswordPanel();
+  if (opening) {
+    $('change-password-panel').hidden = false;
+    $('change-password-button').setAttribute('aria-expanded', 'true');
+    $('current-password').focus();
+  }
+});
+$('cancel-password-button').addEventListener('click', closePasswordPanel);
+$('change-password-form').addEventListener('submit', async event => {
+  event.preventDefault();
+  const oldPassword = $('current-password').value;
+  const newPassword = $('new-password').value;
+  const confirmed = $('confirm-password').value;
+  const feedback = $('change-password-feedback');
+  feedback.textContent = '';
+  feedback.classList.remove('is-error', 'is-success');
+  if (newPassword.length < 8) {
+    feedback.textContent = 'A nova senha precisa ter pelo menos oito caracteres.';
+    feedback.classList.add('is-error');
+    return;
+  }
+  if (newPassword !== confirmed) {
+    feedback.textContent = 'As duas digitações da nova senha não coincidem.';
+    feedback.classList.add('is-error');
+    return;
+  }
+  if (newPassword === oldPassword) {
+    feedback.textContent = 'Escolha uma senha diferente da atual.';
+    feedback.classList.add('is-error');
+    return;
+  }
+  const submit = $('save-password-button');
+  submit.disabled = true;
+  try {
+    const { data: { user }, error: userError } = await sb.auth.getUser();
+    if (userError || !user) {
+      feedback.textContent = 'Sua sessão expirou. Entre novamente para alterar a senha.';
+      feedback.classList.add('is-error');
+      return;
+    }
+    const { error } = await sb.auth.updateUser({
+      password: newPassword,
+      current_password: oldPassword
+    });
+    if (error) {
+      feedback.textContent = 'Não foi possível alterar a senha. Verifique a senha atual e, se necessário, saia e entre novamente.';
+      feedback.classList.add('is-error');
+      return;
+    }
+    $('change-password-form').reset();
+    feedback.textContent = 'Senha atualizada. Utilize a nova senha no próximo login.';
+    feedback.classList.add('is-success');
+  } catch {
+    feedback.textContent = 'Não foi possível concluir a alteração. Tente novamente.';
+    feedback.classList.add('is-error');
+  } finally {
+    submit.disabled = false;
+  }
 });
 $('logout-button').addEventListener('click', async () => { await sb.auth.signOut(); records = []; showLogin(); });
 $('filter-text').addEventListener('input', render);
