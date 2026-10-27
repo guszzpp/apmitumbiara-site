@@ -1,5 +1,5 @@
 /* APMI — cursos: interface de autenticação e tabelas */
-.cursos-login{max-width:520px;border:1px solid var(--line);padding:30px;background:var(--paper)}
+.cursos-login{width:100%;max-width:520px;margin-inline:auto;border:1px solid var(--line);padding:30px;background:var(--paper)}
 .cursos-login h2,.cursos-toolbar h2{font-size:1.65rem}
 .cursos-login p{color:var(--muted);margin:12px 0 20px}
 .cursos-login form{display:flex;flex-direction:column;gap:10px}
