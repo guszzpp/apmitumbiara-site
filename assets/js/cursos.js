@@ -75,6 +75,17 @@ async function load() {
   $('login-panel').hidden = true; $('cursos-status').hidden = true;
   render();
 }
+
+const passwordField = $('password');
+const passwordToggle = $('password-toggle');
+passwordToggle.addEventListener('click', () => {
+  const visible = passwordField.type === 'password';
+  passwordField.type = visible ? 'text' : 'password';
+  passwordToggle.setAttribute('aria-pressed', String(visible));
+  passwordToggle.setAttribute('aria-label', visible ? 'Ocultar senha' : 'Mostrar senha');
+  passwordToggle.title = visible ? 'Ocultar senha' : 'Mostrar senha';
+});
+
 $('login-form').addEventListener('submit', async e => {
   e.preventDefault();
   const button = $('login-submit'); button.disabled = true; $('login-error').textContent = '';
