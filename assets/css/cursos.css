@@ -42,3 +42,17 @@
 .cursos-status{font-weight:600;color:var(--muted)}
 [hidden]{display:none!important}
 @media(max-width:600px){.cursos-login{padding:22px}.cursos-filtros{grid-template-columns:1fr}.cursos-filtros label:nth-of-type(1){grid-area:1/1}.cursos-filtros input{grid-area:2/1}.cursos-filtros label:nth-of-type(2){grid-area:3/1}.cursos-filtros select{grid-area:4/1}}
+
+/* Mostrar ou ocultar a senha sem alterar o texto digitado. */
+.cursos-senha-campo{position:relative;display:block}
+.cursos-senha-campo input{padding-right:56px}
+.cursos-login button.cursos-senha-toggle{
+ position:absolute;top:50%;right:5px;transform:translateY(-50%);
+ display:inline-flex;align-items:center;justify-content:center;
+ width:42px;height:42px;padding:0;background:transparent;
+ border:0;border-radius:3px;color:var(--navy-700);cursor:pointer
+}
+.cursos-login button.cursos-senha-toggle:hover{background:rgba(13,39,68,.08)}
+.cursos-senha-toggle .cursos-eye-closed{display:none}
+.cursos-senha-toggle[aria-pressed="true"] .cursos-eye-open{display:none}
+.cursos-senha-toggle[aria-pressed="true"] .cursos-eye-closed{display:block}
