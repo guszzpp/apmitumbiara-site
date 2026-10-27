@@ -56,3 +56,19 @@
 .cursos-senha-toggle .cursos-eye-closed{display:none}
 .cursos-senha-toggle[aria-pressed="true"] .cursos-eye-open{display:none}
 .cursos-senha-toggle[aria-pressed="true"] .cursos-eye-closed{display:block}
+
+/* Gerenciamento voluntário da própria senha */
+.cursos-account-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cursos-change-panel{margin-top:28px;padding:26px;border:1px solid var(--line);background:var(--paper);max-width:640px}
+.cursos-change-panel h3{font-size:1.28rem}
+.cursos-change-panel p{color:var(--muted);font-size:.93rem;margin:8px 0 18px}
+.cursos-change-panel form{display:flex;flex-direction:column;gap:10px}
+.cursos-change-panel label{font-size:.88rem;font-weight:600;color:var(--navy-700)}
+.cursos-change-panel input{display:block;width:100%;min-width:0;font:inherit;padding:11px 12px;border:1px solid var(--line-strong);border-radius:3px;background:var(--white)}
+.cursos-change-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.cursos-change-actions button{font:inherit;font-size:.93rem;font-weight:600;padding:11px 20px;border:1px solid var(--navy-900);border-radius:3px;background:var(--navy-900);color:var(--white);cursor:pointer}
+.cursos-change-actions button[type=button]{background:transparent;color:var(--navy-900)}
+.cursos-change-actions button:disabled{opacity:.65;cursor:wait}
+.cursos-change-panel #change-password-feedback{margin:14px 0 0}
+.cursos-change-panel #change-password-feedback.is-error{color:var(--wine-700)}
+.cursos-change-panel #change-password-feedback.is-success{color:var(--navy-900);font-weight:600}
