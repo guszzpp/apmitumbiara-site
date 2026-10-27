@@ -246,3 +246,68 @@ h1,h2,h3{font-family:var(--serif);font-weight:500;color:var(--navy-900);margin:0
   .section,.section + .section{border:none;padding-block:26px}
   a{text-decoration:none;color:var(--ink)}
 }
+
+/* ---------- modo escuro e seletor de tema ---------- */
+:root{color-scheme:light}
+.header-actions{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.theme-toggle{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:44px;height:44px;padding:0;border:1px solid var(--line-strong);
+  border-radius:3px;background:var(--paper);color:var(--navy-900);
+  font:inherit;font-size:1.45rem;line-height:1;cursor:pointer;
+}
+.theme-toggle:hover{background:var(--line)}
+.theme-toggle:focus-visible{outline:2px solid var(--wine-700);outline-offset:3px}
+@media(max-width:900px){
+  .site-header-inner{gap:16px}
+}
+@media(max-width:600px){
+  .header-actions{gap:8px}
+  .theme-toggle{width:42px;height:42px}
+}
+html[data-theme="dark"]{
+  color-scheme:dark;
+  --navy-900:#c5d9ee;
+  --navy-700:#afc8e2;
+  --navy-500:#94adc7;
+  --wine-700:#e7a0a0;
+  --wine-600:#d78989;
+  --ink:#e6edf4;
+  --muted:#b1bfce;
+  --line:#354657;
+  --line-strong:#65768b;
+  --paper:#1c2b3d;
+  --white:#111c2a;
+}
+html[data-theme="dark"] .prose p{color:#cbd5df}
+html[data-theme="dark"] .site-header .brand img{
+  background:#fff;border-radius:3px;padding:3px 6px;
+}
+html[data-theme="dark"] .footer-brand{background:#fff}
+html[data-theme="dark"] .hero-seal img{
+  background:rgba(255,255,255,.95);padding:16px;border-radius:50%;filter:none;
+}
+html[data-theme="dark"] .skip-link{background:#365779;color:#fff}
+html[data-theme="dark"] .cursos-login input,
+html[data-theme="dark"] .cursos-filtros input,
+html[data-theme="dark"] .cursos-filtros select,
+html[data-theme="dark"] .cursos-change-panel input{color:var(--ink)}
+html[data-theme="dark"] .cursos-login input::placeholder,
+html[data-theme="dark"] .cursos-filtros input::placeholder,
+html[data-theme="dark"] .cursos-change-panel input::placeholder{color:#98aabd;opacity:1}
+html[data-theme="dark"] .cursos-table thead{background:#294564;color:#f4f7fb}
+html[data-theme="dark"] .cursos-login button[type="submit"],
+html[data-theme="dark"] .cursos-change-actions button[type="submit"]{
+  background:#365779;border-color:#7592b0;color:#fff;
+}
+html[data-theme="dark"] .cursos-login button.cursos-senha-toggle:hover{background:rgba(255,255,255,.09)}
+@media print{
+  .theme-toggle{display:none!important}
+  html[data-theme="dark"]{
+    color-scheme:light;
+    --navy-900:#0d2744;--navy-700:#1e3a57;--wine-700:#6c1a1a;
+    --ink:#182430;--muted:#586573;--line:#d8dde1;
+    --paper:#f4f6f7;--white:#fff;
+  }
+  html[data-theme="dark"] .prose p{color:#37424c}
+}
