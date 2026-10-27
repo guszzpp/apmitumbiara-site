@@ -72,3 +72,19 @@
 .cursos-change-panel #change-password-feedback{margin:14px 0 0}
 .cursos-change-panel #change-password-feedback.is-error{color:var(--wine-700)}
 .cursos-change-panel #change-password-feedback.is-success{color:var(--navy-900);font-weight:600}
+
+/* Primeiro acesso e recuperação de senha */
+.cursos-entry-links{display:flex;flex-wrap:wrap;gap:8px 22px;align-items:center;margin-top:14px}
+.cursos-login .cursos-entry-links button,
+.cursos-login button.cursos-text-button{
+ display:inline-block;width:auto;padding:4px 0;margin:0;border:0;background:transparent;
+ color:var(--navy-900);text-decoration:underline;text-underline-offset:3px;
+ font-size:.91rem;font-weight:600;cursor:pointer
+}
+.cursos-login .cursos-entry-links button:hover,
+.cursos-login button.cursos-text-button:hover{color:var(--wine-700)}
+.cursos-login button.cursos-text-button{margin-top:14px}
+.cursos-login #email-request-feedback.is-error,
+.cursos-login #set-password-feedback.is-error{color:var(--wine-700)}
+.cursos-login #email-request-feedback.is-success{color:var(--navy-900);font-weight:600}
+.cursos-login .cursos-account-email{overflow-wrap:anywhere;font-weight:600;color:var(--navy-900)}
