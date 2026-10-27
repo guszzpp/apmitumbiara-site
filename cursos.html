@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cursos — APMI</title>
+<meta name="description" content="Área exclusiva de cursos para associados da APMI.">
+<meta name="theme-color" content="#0d2744">
+<link rel="canonical" href="https://apmitumbiara.org/cursos.html">
+<link rel="icon" type="image/png" href="assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="stylesheet" href="assets/css/cursos.css">
+</head>
+<body>
+<a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+<div class="masthead-band" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="container site-header-inner">
+    <a class="brand" href="index.html" aria-label="APMI — página inicial">
+      <img src="assets/img/logo-apmi.png" alt="Associação dos Procuradores do Município de Itumbiara — APMI">
+    </a>
+    <nav class="primary-nav" aria-label="Navegação principal">
+      <a href="index.html">Início</a>
+      <a href="associacao.html">A Associação</a>
+      <a href="diretoria.html">Diretoria</a>
+      <a href="contato.html">Contato</a>
+      <a href="cursos.html" aria-current="page">Cursos</a>
+    </nav>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-nav">☰</button>
+  </div>
+  <nav class="container mobile-nav" id="mobile-nav" aria-label="Navegação móvel">
+    <a href="index.html">Início</a>
+    <a href="associacao.html">A Associação</a>
+    <a href="diretoria.html">Diretoria</a>
+    <a href="contato.html">Contato</a>
+      <a href="cursos.html" aria-current="page">Cursos</a>
+  </nav>
+</header>
+
+<div class="page-title">
+  <div class="container page-title-inner">
+    <h1>Cursos</h1>
+  </div>
+</div>
+
+<main id="conteudo">
+  <section class="section">
+    <div class="container">
+      <div id="cursos-status" class="cursos-status" role="status" aria-live="polite">Verificando acesso…</div>
+      <div id="login-panel" class="cursos-login" hidden>
+        <h2>Área exclusiva dos associados</h2>
+        <p>Entre com o e-mail cadastrado na APMI e sua senha individual.</p>
+        <form id="login-form">
+          <label for="email">E-mail</label>
+          <input id="email" name="email" type="email" autocomplete="username" required maxlength="254">
+          <label for="password">Senha</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" required>
+          <button type="submit" id="login-submit">Entrar</button>
+        </form>
+        <p id="login-error" class="cursos-error" role="alert"></p>
+      </div>
+      <div id="courses-panel" hidden>
+        <div class="cursos-toolbar">
+          <div><h2>Catálogo de cursos</h2><p id="user-label"></p></div>
+          <button type="button" id="logout-button">Sair</button>
+        </div>
+        <div class="cursos-filtros">
+          <label for="filter-text">Buscar curso</label>
+          <input type="search" id="filter-text" placeholder="Digite um termo ou uma instituição…">
+          <label for="filter-instituicao">Instituição</label>
+          <select id="filter-instituicao"><option value="">Todas as instituições</option></select>
+        </div>
+        <p id="course-count" class="cursos-count"></p>
+        <div id="courses-root"></div>
+        <p class="cursos-note">Listagem de referência de 26/10/2026. “N/C” indica carga horária não confirmada. Links para catálogos e cursos previstos não representam inscrições abertas.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand"><img src="assets/img/logo-apmi.png" alt="APMI"></div>
+        <p class="footer-desc">Associação dos Procuradores do Município de Itumbiara.</p>
+      </div>
+      <div class="footer-locus">
+        <strong>Itumbiara · Goiás</strong>
+      </div>
+    </div>
+    <hr class="footer-rule">
+    <div class="footer-bottom">
+      <span>© 2026 APMI</span>
+      <span>Portal institucional</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+<script type="module" src="assets/js/cursos.js"></script>
+</body>
+</html>
