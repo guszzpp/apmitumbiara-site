@@ -31,7 +31,7 @@
 }
 
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:124px}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
@@ -66,7 +66,14 @@ h1,h2,h3{font-family:var(--serif);font-weight:500;color:var(--navy-900);margin:0
 /* ---------- letterhead / cabeçalho ---------- */
 .masthead-band{height:4px;background:linear-gradient(90deg,var(--wine-700),var(--navy-900) 62%)}
 
-.site-header{background:var(--white);border-bottom:1px solid var(--line)}
+/* Cabeçalho permanece visível durante a rolagem, sem sair do fluxo. */
+.site-header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:var(--white);
+  border-bottom:1px solid var(--line);
+}
 .site-header-inner{
   min-height:108px;display:flex;align-items:center;justify-content:space-between;gap:32px;
   padding-block:14px;
@@ -234,6 +241,7 @@ h1,h2,h3{font-family:var(--serif);font-weight:500;color:var(--navy-900);margin:0
 @media (max-width:600px){
   :root{--gutter:22px}
   .site-header-inner{min-height:84px}
+  html{scroll-padding-top:100px}
   .brand img{height:44px}
   .hero-inner{padding-block:46px}
   .hero h1{max-width:none}
