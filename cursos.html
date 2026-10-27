@@ -69,7 +69,36 @@
           </div>
           <button type="submit" id="login-submit">Entrar</button>
         </form>
+        <div class="cursos-entry-links">
+          <button type="button" id="first-access-button">Primeiro acesso</button>
+          <button type="button" id="forgot-password-button">Esqueci minha senha</button>
+        </div>
         <p id="login-error" class="cursos-error" role="alert"></p>
+      </div>
+      <div id="email-panel" class="cursos-login" hidden>
+        <h2 id="email-panel-title">Primeiro acesso</h2>
+        <p id="email-panel-description">Informe o e-mail cadastrado na APMI para receber um link seguro e definir sua senha.</p>
+        <form id="email-request-form">
+          <label for="access-email">E-mail de cadastro</label>
+          <input id="access-email" name="access-email" type="email" autocomplete="email" maxlength="254" required>
+          <button type="submit" id="email-request-submit">Enviar link por e-mail</button>
+        </form>
+        <p id="email-request-feedback" role="status" aria-live="polite"></p>
+        <button type="button" class="cursos-text-button" id="back-login-button">Voltar ao login</button>
+      </div>
+      <div id="set-password-panel" class="cursos-login" hidden>
+        <h2>Definir minha senha</h2>
+        <p>O acesso por e-mail foi confirmado. Escolha uma senha pessoal para acessar os cursos.</p>
+        <p id="set-password-email" class="cursos-account-email"></p>
+        <form id="set-password-form">
+          <label for="setup-new-password">Nova senha</label>
+          <input id="setup-new-password" type="password" autocomplete="new-password" minlength="10" required>
+          <label for="setup-confirm-password">Confirmar nova senha</label>
+          <input id="setup-confirm-password" type="password" autocomplete="new-password" minlength="10" required>
+          <button type="submit" id="setup-password-submit">Salvar minha senha</button>
+        </form>
+        <p id="set-password-feedback" class="cursos-error" role="status" aria-live="polite"></p>
+        <button type="button" class="cursos-text-button" id="cancel-password-setup">Cancelar e sair</button>
       </div>
       <div id="courses-panel" hidden>
         <div class="cursos-toolbar">
