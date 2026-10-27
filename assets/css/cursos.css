@@ -1,0 +1,44 @@
+/* APMI — cursos: interface de autenticação e tabelas */
+.cursos-login{max-width:520px;border:1px solid var(--line);padding:30px;background:var(--paper)}
+.cursos-login h2,.cursos-toolbar h2{font-size:1.65rem}
+.cursos-login p{color:var(--muted);margin:12px 0 20px}
+.cursos-login form{display:flex;flex-direction:column;gap:10px}
+.cursos-login label,.cursos-filtros label{font-size:.88rem;font-weight:600;color:var(--navy-700)}
+.cursos-login input,.cursos-filtros input,.cursos-filtros select{
+ width:100%;font:inherit;border:1px solid var(--line-strong);border-radius:3px;
+ background:var(--white);padding:11px 12px;color:var(--ink);min-width:0
+}
+.cursos-login button,.cursos-toolbar button{
+ font:inherit;font-size:.93rem;font-weight:600;border:1px solid var(--navy-900);
+ padding:11px 20px;cursor:pointer;background:var(--navy-900);color:var(--white);
+ border-radius:3px
+}
+.cursos-login button:disabled{opacity:.65;cursor:wait}
+.cursos-login .cursos-error{color:var(--wine-700);margin-bottom:0}
+.cursos-toolbar{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.cursos-toolbar p{color:var(--muted);font-size:.9rem;margin:4px 0 0;overflow-wrap:anywhere}
+.cursos-toolbar button{background:var(--white);color:var(--navy-900)}
+.cursos-toolbar button:hover{background:var(--paper)}
+.cursos-filtros{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:8px 18px;margin-top:30px;align-items:end}
+.cursos-filtros label{align-self:end}
+.cursos-filtros label:nth-of-type(1){grid-area:1/1}
+.cursos-filtros input{grid-area:2/1}
+.cursos-filtros label:nth-of-type(2){grid-area:1/2}
+.cursos-filtros select{grid-area:2/2}
+.cursos-count{color:var(--muted);font-size:.9rem;margin:22px 0 8px}
+.cursos-group{padding-top:30px}
+.cursos-group h3{font-size:1.2rem;margin-bottom:12px;line-height:1.35}
+.cursos-table-scroll{max-width:100%;overflow-x:auto;border:1px solid var(--line)}
+.cursos-table{width:100%;border-collapse:collapse;text-align:left;font-size:.93rem;min-width:530px}
+.cursos-table thead{background:var(--navy-900);color:var(--white)}
+.cursos-table th{padding:13px 16px;font-weight:600}
+.cursos-table td{padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+.cursos-table tr:last-child td{border-bottom:none}
+.cursos-table tbody tr:nth-child(even){background:var(--paper)}
+.cursos-table td:nth-child(2){white-space:nowrap;width:130px}
+.cursos-table td:nth-child(3){width:100px}
+.cursos-table td a{color:var(--navy-900);text-decoration:underline;text-underline-offset:3px;font-weight:600}
+.cursos-note{margin-top:32px;color:var(--muted);font-size:.88rem;max-width:85ch}
+.cursos-status{font-weight:600;color:var(--muted)}
+[hidden]{display:none!important}
+@media(max-width:600px){.cursos-login{padding:22px}.cursos-filtros{grid-template-columns:1fr}.cursos-filtros label:nth-of-type(1){grid-area:1/1}.cursos-filtros input{grid-area:2/1}.cursos-filtros label:nth-of-type(2){grid-area:3/1}.cursos-filtros select{grid-area:4/1}}
