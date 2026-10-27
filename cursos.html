@@ -74,8 +74,28 @@
       <div id="courses-panel" hidden>
         <div class="cursos-toolbar">
           <div><h2>Catálogo de cursos</h2><p id="user-label"></p></div>
-          <button type="button" id="logout-button">Sair</button>
+          <div class="cursos-account-actions">
+            <button type="button" id="change-password-button" aria-controls="change-password-panel" aria-expanded="false">Alterar senha</button>
+            <button type="button" id="logout-button">Sair</button>
+          </div>
         </div>
+        <section id="change-password-panel" class="cursos-change-panel" aria-labelledby="change-password-title" hidden>
+          <h3 id="change-password-title">Alterar minha senha</h3>
+          <p>Essa alteração é opcional. Informe sua senha atual e escolha uma nova senha com pelo menos oito caracteres.</p>
+          <form id="change-password-form">
+            <label for="current-password">Senha atual</label>
+            <input id="current-password" name="current-password" type="password" autocomplete="current-password" required>
+            <label for="new-password">Nova senha</label>
+            <input id="new-password" name="new-password" type="password" autocomplete="new-password" minlength="8" required>
+            <label for="confirm-password">Confirmar nova senha</label>
+            <input id="confirm-password" name="confirm-password" type="password" autocomplete="new-password" minlength="8" required>
+            <div class="cursos-change-actions">
+              <button type="submit" id="save-password-button">Salvar nova senha</button>
+              <button type="button" id="cancel-password-button">Cancelar</button>
+            </div>
+          </form>
+          <p id="change-password-feedback" role="status" aria-live="polite"></p>
+        </section>
         <div class="cursos-filtros">
           <label for="filter-text">Buscar curso</label>
           <input type="search" id="filter-text" placeholder="Digite um termo ou uma instituição…">
