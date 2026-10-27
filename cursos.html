@@ -60,6 +60,16 @@
         </form>
         <p id="login-error" class="cursos-error" role="alert"></p>
       </div>
+      <div id="password-panel" class="cursos-login" hidden>
+        <h2>Alterar senha</h2>
+        <p>Defina uma nova senha com pelo menos 12 caracteres, incluindo letras maiúsculas, minúsculas e números.</p>
+        <form id="password-form">
+          <label for="new-password">Nova senha</label>
+          <input id="new-password" type="password" autocomplete="new-password" required minlength="12">
+          <button type="submit" id="password-submit">Salvar nova senha</button>
+        </form>
+        <p id="password-error" role="alert"></p>
+      </div>
       <div id="courses-panel" hidden>
         <div class="cursos-toolbar">
           <div><h2>Catálogo de cursos</h2><p id="user-label"></p></div>
