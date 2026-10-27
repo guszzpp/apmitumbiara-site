@@ -13,7 +13,7 @@ function showStatus(message) {
   $('cursos-status').hidden = false; $('cursos-status').textContent = message;
 }
 function approved(user) {
-  return Boolean(user && user.app_metadata?.apmi_member === true && !user.is_anonymous);
+  return Boolean(user && user.email && !user.is_anonymous);
 }
 function cell(tr, value, link = false, label = '') {
   const td = document.createElement('td');
@@ -64,6 +64,10 @@ async function load() {
     .select('instituicao,categoria,curso,carga_horaria,link,rotulo_link,ordem').order('ordem').limit(500);
   if (error) return showStatus('Não foi possível carregar os cursos. Atualize a página.');
   records = data || [];
+  if (!records.length) {
+    await sb.auth.signOut();
+    return showLogin('Seu e-mail não está autorizado a acessar os cursos.');
+  }
   $('filter-instituicao').replaceChildren(new Option('Todas as instituições', ''));
   [...new Set(records.map(x => x.instituicao))].forEach(s => $('filter-instituicao').add(new Option(s, s)));
   $('user-label').textContent = user.email || '';
