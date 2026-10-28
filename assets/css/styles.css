@@ -344,19 +344,10 @@ html[data-theme="dark"] .footer-brand{
   .hero-seal img{width:190px;height:auto;max-width:100%}
 }
 html[data-theme="dark"] .skip-link{background:#365779;color:#fff}
-html[data-theme="dark"] .cursos-login input,
 html[data-theme="dark"] .cursos-filtros input,
-html[data-theme="dark"] .cursos-filtros select,
-html[data-theme="dark"] .cursos-change-panel input{color:var(--ink)}
-html[data-theme="dark"] .cursos-login input::placeholder,
-html[data-theme="dark"] .cursos-filtros input::placeholder,
-html[data-theme="dark"] .cursos-change-panel input::placeholder{color:#98aabd;opacity:1}
+html[data-theme="dark"] .cursos-filtros select{color:var(--ink)}
+html[data-theme="dark"] .cursos-filtros input::placeholder{color:#98aabd;opacity:1}
 html[data-theme="dark"] .cursos-table thead{background:#294564;color:#f4f7fb}
-html[data-theme="dark"] .cursos-login button[type="submit"],
-html[data-theme="dark"] .cursos-change-actions button[type="submit"]{
-  background:#365779;border-color:#7592b0;color:#fff;
-}
-html[data-theme="dark"] .cursos-login button.cursos-senha-toggle:hover{background:rgba(255,255,255,.09)}
 @media print{
   .theme-toggle{display:none!important}
   html[data-theme="dark"]{
