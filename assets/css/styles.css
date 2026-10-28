@@ -330,10 +330,6 @@ html[data-theme="dark"] .footer-brand{
   .primary-nav{margin-left:auto;min-width:0;justify-content:flex-end}
   .primary-nav a{padding-inline:clamp(8px,1vw,16px);white-space:nowrap}
 }
-@media (min-width:901px) and (max-width:1050px){
-  .primary-nav{display:none}
-  .nav-toggle{display:block}
-}
 @media (min-width:901px){
   .hero-inner{
     grid-template-columns:minmax(0,1fr) minmax(190px,260px);
