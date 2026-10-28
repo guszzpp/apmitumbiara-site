@@ -1,30 +1,13 @@
-/* APMI — cursos: interface de autenticação e tabelas */
-.cursos-login{width:100%;max-width:520px;margin-inline:auto;border:1px solid var(--line);padding:30px;background:var(--paper)}
-.cursos-login h2,.cursos-toolbar h2{font-size:1.65rem}
-.cursos-login p{color:var(--muted);margin:12px 0 20px}
-.cursos-login form{display:flex;flex-direction:column;gap:10px}
-.cursos-login label,.cursos-filtros label{font-size:.88rem;font-weight:600;color:var(--navy-700)}
-.cursos-login input,.cursos-filtros input,.cursos-filtros select{
- width:100%;font:inherit;border:1px solid var(--line-strong);border-radius:3px;
- background:var(--white);padding:11px 12px;color:var(--ink);min-width:0
-}
-.cursos-login button,.cursos-toolbar button{
- font:inherit;font-size:.93rem;font-weight:600;border:1px solid var(--navy-900);
- padding:11px 20px;cursor:pointer;background:var(--navy-900);color:var(--white);
- border-radius:3px
-}
-.cursos-login button:disabled{opacity:.65;cursor:wait}
-.cursos-login .cursos-error{color:var(--wine-700);margin-bottom:0}
-.cursos-toolbar{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
-.cursos-toolbar p{color:var(--muted);font-size:.9rem;margin:4px 0 0;overflow-wrap:anywhere}
-.cursos-toolbar button{background:var(--white);color:var(--navy-900)}
-.cursos-toolbar button:hover{background:var(--paper)}
+/* APMI — catálogo público e estático de cursos */
+.cursos-toolbar h2{font-size:1.65rem}
+.cursos-intro{max-width:80ch;color:var(--muted);font-size:.97rem;line-height:1.7;margin:12px 0 0}
 .cursos-filtros{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:8px 18px;margin-top:30px;align-items:end}
-.cursos-filtros label{align-self:end}
+.cursos-filtros label{align-self:end;font-size:.88rem;font-weight:600;color:var(--navy-700)}
 .cursos-filtros label:nth-of-type(1){grid-area:1/1}
 .cursos-filtros input{grid-area:2/1}
 .cursos-filtros label:nth-of-type(2){grid-area:1/2}
 .cursos-filtros select{grid-area:2/2}
+.cursos-filtros input,.cursos-filtros select{width:100%;min-width:0;font:inherit;border:1px solid var(--line-strong);border-radius:3px;background:var(--white);padding:11px 12px;color:var(--ink)}
 .cursos-count{color:var(--muted);font-size:.9rem;margin:22px 0 8px}
 .cursos-group{padding-top:30px}
 .cursos-group h3{font-size:1.2rem;margin-bottom:12px;line-height:1.35}
@@ -39,52 +22,11 @@
 .cursos-table td:nth-child(3){width:100px}
 .cursos-table td a{color:var(--navy-900);text-decoration:underline;text-underline-offset:3px;font-weight:600}
 .cursos-note{margin-top:32px;color:var(--muted);font-size:.88rem;max-width:85ch}
-.cursos-status{font-weight:600;color:var(--muted)}
 [hidden]{display:none!important}
-@media(max-width:600px){.cursos-login{padding:22px}.cursos-filtros{grid-template-columns:1fr}.cursos-filtros label:nth-of-type(1){grid-area:1/1}.cursos-filtros input{grid-area:2/1}.cursos-filtros label:nth-of-type(2){grid-area:3/1}.cursos-filtros select{grid-area:4/1}}
-
-/* Mostrar ou ocultar a senha sem alterar o texto digitado. */
-.cursos-senha-campo{position:relative;display:block}
-.cursos-senha-campo input{padding-right:56px}
-.cursos-login button.cursos-senha-toggle{
- position:absolute;top:50%;right:5px;transform:translateY(-50%);
- display:inline-flex;align-items:center;justify-content:center;
- width:42px;height:42px;padding:0;background:transparent;
- border:0;border-radius:3px;color:var(--navy-700);cursor:pointer
+@media(max-width:600px){
+ .cursos-filtros{grid-template-columns:1fr}
+ .cursos-filtros label:nth-of-type(1){grid-area:1/1}
+ .cursos-filtros input{grid-area:2/1}
+ .cursos-filtros label:nth-of-type(2){grid-area:3/1}
+ .cursos-filtros select{grid-area:4/1}
 }
-.cursos-login button.cursos-senha-toggle:hover{background:rgba(13,39,68,.08)}
-.cursos-senha-toggle .cursos-eye-closed{display:none}
-.cursos-senha-toggle[aria-pressed="true"] .cursos-eye-open{display:none}
-.cursos-senha-toggle[aria-pressed="true"] .cursos-eye-closed{display:block}
-
-/* Gerenciamento voluntário da própria senha */
-.cursos-account-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.cursos-change-panel{margin-top:28px;padding:26px;border:1px solid var(--line);background:var(--paper);max-width:640px}
-.cursos-change-panel h3{font-size:1.28rem}
-.cursos-change-panel p{color:var(--muted);font-size:.93rem;margin:8px 0 18px}
-.cursos-change-panel form{display:flex;flex-direction:column;gap:10px}
-.cursos-change-panel label{font-size:.88rem;font-weight:600;color:var(--navy-700)}
-.cursos-change-panel input{display:block;width:100%;min-width:0;font:inherit;padding:11px 12px;border:1px solid var(--line-strong);border-radius:3px;background:var(--white)}
-.cursos-change-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
-.cursos-change-actions button{font:inherit;font-size:.93rem;font-weight:600;padding:11px 20px;border:1px solid var(--navy-900);border-radius:3px;background:var(--navy-900);color:var(--white);cursor:pointer}
-.cursos-change-actions button[type=button]{background:transparent;color:var(--navy-900)}
-.cursos-change-actions button:disabled{opacity:.65;cursor:wait}
-.cursos-change-panel #change-password-feedback{margin:14px 0 0}
-.cursos-change-panel #change-password-feedback.is-error{color:var(--wine-700)}
-.cursos-change-panel #change-password-feedback.is-success{color:var(--navy-900);font-weight:600}
-
-/* Primeiro acesso e recuperação de senha */
-.cursos-entry-links{display:flex;flex-wrap:wrap;gap:8px 22px;align-items:center;margin-top:14px}
-.cursos-login .cursos-entry-links button,
-.cursos-login button.cursos-text-button{
- display:inline-block;width:auto;padding:4px 0;margin:0;border:0;background:transparent;
- color:var(--navy-900);text-decoration:underline;text-underline-offset:3px;
- font-size:.91rem;font-weight:600;cursor:pointer
-}
-.cursos-login .cursos-entry-links button:hover,
-.cursos-login button.cursos-text-button:hover{color:var(--wine-700)}
-.cursos-login button.cursos-text-button{margin-top:14px}
-.cursos-login #email-request-feedback.is-error,
-.cursos-login #set-password-feedback.is-error{color:var(--wine-700)}
-.cursos-login #email-request-feedback.is-success{color:var(--navy-900);font-weight:600}
-.cursos-login .cursos-account-email{overflow-wrap:anywhere;font-weight:600;color:var(--navy-900)}
