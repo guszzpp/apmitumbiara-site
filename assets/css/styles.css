@@ -291,6 +291,11 @@ html[data-theme="dark"]{
   --white:#111c2a;
 }
 html[data-theme="dark"] .prose p{color:#cbd5df}
+/* Mantém a identidade visual original sobre base branca também no modo escuro. */
+html[data-theme="dark"] .site-header .brand{
+  background:#fff;
+  padding:8px 12px;
+}
 /* A identidade visual mantém as cores originais dos PNGs em ambos
    os temas. Nunca usar inversão, modos de mesclagem ou escala alternativa. */
 html[data-theme="dark"] .site-header .brand img,
